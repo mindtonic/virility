@@ -41,8 +41,7 @@ Currently there is support for the following social resources:
 
 Each social resources is implemented as a strategy and contains at least two methods: poll and count.  
 
-_poll_ does the work of querying the API to get the data 
-_count_ pulls out the individual number of shares for that social
+__poll__ does the work of querying the API to get the data, __count__ pulls out the individual number of shares for that social.
 
 Let's say you only need to get the number of tweets for a URL, you could use the Virility::Twitter class by itself:
 
@@ -52,6 +51,10 @@ Let's say you only need to get the number of tweets for a URL, you could use the
 
 ## Facebook Usage
 
+    fb = Virility::Facebook.new("http://rubygems.org")
+    fb.poll # returns a hash with the collected output from Facebook 
+    fb.count # returns the total_count for that URL => 72 
+
 The Facebook strategy leverages the FQL query against the link_stat table. Because of this, the following data fields are available:
 * like_count
 * click_count
@@ -60,10 +63,6 @@ The Facebook strategy leverages the FQL query against the link_stat table. Becau
 * commentsbox_count
 * total_count (used as the default count for all Facebook activity)
 * comments_fbid
-
-    fb = Virility::Facebook.new("http://rubygems.org")
-    fb.poll # returns a hash with the collected output from Facebook 
-    fb.count # returns the total_count for that URL => 72 
 
 ## Important Notes
 
