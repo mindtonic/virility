@@ -18,19 +18,18 @@ module Virility
 		# Get Virility from all of the Strategies
 		#
 
-		def get_virility
+		def poll
 			if @results.empty?	
 				@strategies.each do |name, strategy|
 					begin
-						@results[symbolize_for_key(strategy)] = strategy.get_virility
+						@results[symbolize_for_key(strategy)] = strategy.poll
 					rescue => e
-						puts "[virility] #{strategy.class.to_s} => #{e}"
+						puts "[virility#poll] #{strategy.class.to_s} => #{e}"
 					end
 				end
 			end
 			@results
 		end
-		alias :poll :get_virility
 
 		def get_response(strategy)
 			@strategies[strategy].response if @strategies[strategy]
@@ -41,7 +40,7 @@ module Virility
 		#
 		
 		def counts
-			get_virility
+			poll
 			if @counts.empty?		
 				@strategies.each do |name, strategy|
 					begin

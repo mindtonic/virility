@@ -23,9 +23,9 @@ describe "Excitation" do
 	# Get Virility
 	#
 
-# 	context "get_virility" do
+# 	context "poll" do
 # 		it "should not raise an error" do
-# 			lambda {Virility::Excitation.new(@url).get_virility}.should_not raise_error
+# 			lambda {Virility::Excitation.new(@url).poll}.should_not raise_error
 # 		end
 # 	end
 

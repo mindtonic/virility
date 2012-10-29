@@ -24,8 +24,8 @@ describe "Context" do
 	#
 
 	context "interface" do
-		it "should raise an error on get_virility" do
-			lambda { Virility::Context.new(@url).get_virility }.should raise_error
+		it "should raise an error on poll" do
+			lambda { Virility::Context.new(@url).poll }.should raise_error
 		end
 	end
 end

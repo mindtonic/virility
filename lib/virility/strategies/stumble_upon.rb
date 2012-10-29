@@ -7,7 +7,7 @@ module Virility
 	    end
 	  )
 	
-		def get_virility
+		def poll
 			@response = self.class.get("http://www.stumbleupon.com/services/1.01/badge.getinfo?url=#{@url}")
 			@results = @response.parsed_response
 		end

@@ -7,8 +7,8 @@ module Virility
 			@url = url
 		end
 
-		def get_virility
-			raise "Abstract Method get_virility called on #{self.class} - Please define this method"
+		def poll
+			raise "Abstract Method poll called on #{self.class} - Please define this method"
 		end
 	end
 end

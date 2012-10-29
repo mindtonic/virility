@@ -8,7 +8,7 @@ module Virility
 	    end
 	  )
 	
-		def get_virility
+		def poll
 			@response = self.class.get("https://plusone.google.com/_/+1/fastbutton?url=#{@url}")
 			@results = @response.parsed_response
 		end

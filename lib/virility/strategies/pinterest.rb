@@ -7,7 +7,7 @@ module Virility
 	    end
 	  )
 	
-		def get_virility
+		def poll
 			@response = self.class.get("http://api.pinterest.com/v1/urls/count.json?url=#{@url}")
 			@results = @response.parsed_response
 		end
