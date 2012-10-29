@@ -3,7 +3,7 @@ module Virility
 	
 	  parser(
 	    Proc.new do |body, format|
-	      MultiJson.decode(body.scan(/({.+})/).flatten.first)
+	      MultiJson.decode(body.scan(/(\{.+\})/).flatten.first)
 	    end
 	  )
 	
