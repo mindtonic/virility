@@ -1,6 +1,6 @@
 # Virility
 
-TODO: Write a gem description
+Virility calls upon the API's of many popular social services such as Facebook, Twitter and Pinterest to collect the number of likes, tweets, pins etc. of a particular URL.  Written with a modular construction, Virility makes it easy to drop new data collection strategies into the framework so that you can collect all of your statistics in one easy location.
 
 ## Installation
 
@@ -18,7 +18,18 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    stats = Virility::Excitation.new(the_url_you_want_to_collect_data_for)
+    stats.get_virility
+
+Currently there is support for the following social resources:
+* Facebook
+* Twitter
+* Delicious
+* Pinterest
+* Google Plus One
+* Stumble Upon
+
+More detailed information coming soon.
 
 ## Contributing
 
@@ -27,3 +38,8 @@ TODO: Write usage instructions here
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+== Copyright
+
+Copyright (c) 2012 Jay Sanders. See LICENSE.txt for
+further details.

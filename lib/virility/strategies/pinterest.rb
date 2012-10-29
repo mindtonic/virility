@@ -1,0 +1,16 @@
+module Virility
+	class Pinterest < Context
+	
+	  parser(
+	    Proc.new do |body, format|
+	      MultiJson.decode(body.scan(/({.+})/).flatten.first)
+	    end
+	  )
+	
+		def get_virility
+			@response = self.class.get("http://api.pinterest.com/v1/urls/count.json?url=#{@url}")
+			@counts = @response.parsed_response
+		end
+	
+	end
+end
