@@ -1,6 +1,5 @@
 require 'cgi'
 require 'httparty'
-require 'json'
 
 require "virility/version"
 require 'virility/excitation'
