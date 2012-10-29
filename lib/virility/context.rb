@@ -10,5 +10,9 @@ module Virility
 		def poll
 			raise "Abstract Method poll called on #{self.class} - Please define this method"
 		end
+
+		def count
+			raise "Abstract Method count called on #{self.class} - Please define this method"
+		end
 	end
 end
