@@ -19,15 +19,18 @@ module Virility
 		#
 
 		def get_virility
-			@strategies.each do |name, strategy|
-				begin
-					@results[symbolize_for_key(strategy)] = strategy.get_virility
-				rescue => e
-					puts "[virility] #{strategy.class.to_s} => #{e}"
+			if @results.empty?	
+				@strategies.each do |name, strategy|
+					begin
+						@results[symbolize_for_key(strategy)] = strategy.get_virility
+					rescue => e
+						puts "[virility] #{strategy.class.to_s} => #{e}"
+					end
 				end
 			end
 			@results
 		end
+		alias :poll :get_virility
 
 		def get_response(strategy)
 			@strategies[strategy].response if @strategies[strategy]
@@ -38,15 +41,23 @@ module Virility
 		#
 		
 		def counts
-			@strategies.each do |name, strategy|
-				begin
-					@counts[symbolize_for_key(strategy)] = strategy.count.to_i
-				rescue => e
-					puts "[virility] #{strategy.class.to_s} => #{e}"
+			get_virility
+			if @counts.empty?		
+				@strategies.each do |name, strategy|
+					begin
+						@counts[symbolize_for_key(strategy)] = strategy.count.to_i
+					rescue => e
+						puts "[virility] #{strategy.class.to_s} => #{e}"
+					end
 				end
 			end
 			@counts
 		end
+		
+		def total_virility
+			counts.values.inject(0) { |result, count| result + count }
+		end
+		alias :total :total_virility
 
 		#
 		# Gather all of the Strategies
@@ -101,7 +112,7 @@ module Virility
 		#
 
 		def attributes
-			{:url => @url}
+			{:url => @url, :available_strategies => @strategies.keys}
 		end
 
 	end
