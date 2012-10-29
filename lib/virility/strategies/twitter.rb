@@ -3,7 +3,11 @@ module Virility
 	
 		def get_virility
 			@response = self.class.get("http://urls.api.twitter.com/1/urls/count.json?url=#{@url}")
-			@counts = @response.parsed_response
+			@results = @response.parsed_response
+		end
+		
+		def count
+			@results["count"] || 0
 		end
 	
 	end

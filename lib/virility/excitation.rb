@@ -1,6 +1,6 @@
 module Virility
 	class Excitation
-		attr_accessor :url, :results, :strategies
+		attr_accessor :url, :results, :strategies, :counts
 
 		#
 		# Initialization
@@ -10,6 +10,7 @@ module Virility
 			@url = encode url
 			@strategies = {}
 			@results = {}
+			@counts = {}
 			collect_strategies
 		end
 
@@ -30,6 +31,21 @@ module Virility
 
 		def get_response(strategy)
 			@strategies[strategy].response if @strategies[strategy]
+		end
+		
+		#
+		# Return Collected Counts as a Hash
+		#
+		
+		def counts
+			@strategies.each do |name, strategy|
+				begin
+					@counts[symbolize_for_key(strategy)] = strategy.count.to_i
+				rescue => e
+					puts "[virility] #{strategy.class.to_s} => #{e}"
+				end
+			end
+			@counts
 		end
 
 		#

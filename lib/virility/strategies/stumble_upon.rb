@@ -3,13 +3,17 @@ module Virility
 
 	  parser(
 	    Proc.new do |body, format|
-	      MultiJson.decode(body)
+	      MultiJson.decode(body)["result"]
 	    end
 	  )
 	
 		def get_virility
 			@response = self.class.get("http://www.stumbleupon.com/services/1.01/badge.getinfo?url=#{@url}")
-			@counts = @response.parsed_response
+			@results = @response.parsed_response
+		end
+		
+		def count
+			@results["views"] || 0
 		end
 	
 	end

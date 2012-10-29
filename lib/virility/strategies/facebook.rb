@@ -4,7 +4,11 @@ module Virility
 
 		def get_virility
 			@response = self.class.get("#{BASE_URL}%22#{@url}%22")
-			@counts = @response.parsed_response["fql_query_response"]["link_stat"]
+			@results = @response.parsed_response["fql_query_response"]["link_stat"]
+		end
+		
+		def count
+			@results["total_count"] || 0
 		end
 	end
 end

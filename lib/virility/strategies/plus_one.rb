@@ -10,7 +10,11 @@ module Virility
 	
 		def get_virility
 			@response = self.class.get("https://plusone.google.com/_/+1/fastbutton?url=#{@url}")
-			@counts = @response.parsed_response
+			@results = @response.parsed_response
+		end
+		
+		def count
+			@results["shares"] || 0
 		end
 	
 	end

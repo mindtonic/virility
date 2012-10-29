@@ -3,7 +3,11 @@ module Virility
 	
 		def get_virility
 			@response = self.class.get("http://feeds.delicious.com/v2/json/urlinfo/data?url=#{@url}")
-			@counts = @response.parsed_response.first
+			@results = @response.parsed_response.first
+		end
+		
+		def count
+			@results["total_posts"] || 0
 		end
 	
 	end

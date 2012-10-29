@@ -1,7 +1,7 @@
 module Virility
 	class Context
   	include HTTParty
-		attr_accessor :url, :response, :counts
+		attr_accessor :url, :response, :results
 
 		def initialize url
 			@url = url
