@@ -68,6 +68,25 @@ The Facebook strategy leverages the FQL query against the link_stat table. Becau
 
 URL's are very specific in the context of a social media.  For example, http://rubygems.org will return different results than http://rubygems.org/ with a trailing slash.  Also, http vs https will give you different numbers. This actually has a lot to do with why we created this gem.  When testing be sure to investigate all of the URL variations in order to get the most complete picture of your data.
 
+#### Case Study
+
+Compare the total count results for http://ruby-lang.org/en. One has the trailing slash and one does not.
+
+    Virility::Excitation.new("http://www.ruby-lang.org/en").total # => 247695 
+    Virility::Excitation.new("http://www.ruby-lang.org/en/").total # => 253190 
+
+On this particular day, there was a 5,495 count difference between the two values. Inspecting the actual results shows you which of the social networks takes the varying forms of the urls into account:
+
+    Virility::Excitation.new("http://www.ruby-lang.org/en").counts
+    # => {:delicious=>37, :facebook=>3, :pinterest=>0, :plusone=>20, :stumbleupon=>246937, :twitter=>698} 
+
+    Virility::Excitation.new("http://www.ruby-lang.org/en/").counts
+    # => {:delicious=>4314, :facebook=>813, :pinterest=>22, :plusone=>406, :stumbleupon=>246937, :twitter=>698} 
+
+Stumbleupon and Twitter are consistent while Delicious, Facebook, Pinterest and Google Plus One return different results. Depending on your needs, you could craft an algorithm that takes all of this into account and attempts to deliver an accurate number by combining the data sets that are different and trusting the ones that are the same. 
+
+Based on this logic, it is possible to consider that the true total share count is closer to _253,250_. Not only is this an opinionated numbber, it's accuracy is questionable based on assumptions, however if you are just trying to get a ballpark feeling of the virility of your content, this number should suffice.
+
 ## Contributing
 
 1. Fork it
