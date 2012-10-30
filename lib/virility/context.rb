@@ -41,7 +41,7 @@ module Virility
 			if result_exists?(key)
 				results[key.to_s]
 			else
-				raise UnknownStrategyValue, "#{key} Is Not A Known Value For #{self.class}"
+				0
 			end
 		end
 
@@ -53,7 +53,7 @@ module Virility
 			if result_exists?(name)
 				get_result(name)
 			else
-				raise UnknownStrategyValue, "#{name} Is Not A Known Value For #{self.class}"
+				0
 			end
 		end
 

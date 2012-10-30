@@ -19,34 +19,6 @@ module Virility
 		def count
 			results["total_count"] || 0
 		end
-
-		#
-		# Facebook Attributes
-		#
-
-		def like_count
-			result_exists?(:like_count) ? get_result(:like_count) : 0
-		end
-
-		def click_count
-			result_exists?(:click_count) ? get_result(:click_count) : 0
-		end
-
-		def share_count
-			result_exists?(:share_count) ? get_result(:share_count) : 0
-		end
-
-		def comment_count
-			result_exists?(:comment_count) ? get_result(:comment_count) : 0
-		end
-
-		def commentsbox_count
-			result_exists?(:commentsbox_count) ? get_result(:commentsbox_count) : 0
-		end
-
-		def total_count
-			result_exists?(:total_count) ? get_result(:total_count) : 0
-		end
 		
 	private
 	

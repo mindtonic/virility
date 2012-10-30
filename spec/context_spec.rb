@@ -54,8 +54,12 @@ describe "Context" do
 			end
 
 			FAKE_FB_RESULTS.each do |key|
-				it "should raise an error if the result (#{key}) does not exist" do
-					lambda { @virility.send(key) }.should raise_error(Virility::UnknownStrategyValue)
+				it "should_not raise an error if the result (#{key}) does not exist" do
+					lambda { @virility.send(key) }.should_not raise_error
+				end
+				
+				it "should return 0 if the result (#{key}) does not exist" do
+					@virility.send(key).should == 0
 				end
 			end
 		end
@@ -87,8 +91,12 @@ describe "Context" do
 			end
 
 			FAKE_FB_RESULTS.each do |key|
-				it "should raise an error if the result (#{key}) does not exist" do
-					lambda { @virility.get_result(key) }.should raise_error(Virility::UnknownStrategyValue)
+				it "should_not raise an error if the result (#{key}) does not exist" do
+					lambda { @virility.send(key) }.should_not raise_error
+				end
+				
+				it "should return 0 if the result (#{key}) does not exist" do
+					@virility.send(key).should == 0
 				end
 			end
 		end
