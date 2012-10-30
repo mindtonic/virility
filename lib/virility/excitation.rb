@@ -1,5 +1,7 @@
 module Virility
 	class Excitation
+		include Virility::Supporter
+		
 		attr_accessor :url, :results, :strategies, :counts
 
 		#
@@ -7,7 +9,7 @@ module Virility
 		#
 
 		def initialize url
-			@url = encode url
+			@url = url
 			@strategies = {}
 			@results = {}
 			@counts = {}
@@ -19,7 +21,7 @@ module Virility
 		#
 
 		def poll
-			if @results.empty?	
+			if @results.empty?
 				@strategies.each do |name, strategy|
 					begin
 						@results[symbolize_for_key(strategy)] = strategy.poll
@@ -34,14 +36,14 @@ module Virility
 		def get_response(strategy)
 			@strategies[strategy].response if @strategies[strategy]
 		end
-		
+
 		#
 		# Return Collected Counts as a Hash
 		#
-		
+
 		def counts
 			poll
-			if @counts.empty?		
+			if @counts.empty?
 				@strategies.each do |name, strategy|
 					begin
 						@counts[symbolize_for_key(strategy)] = strategy.count.to_i
@@ -52,7 +54,7 @@ module Virility
 			end
 			@counts
 		end
-		
+
 		def total_virility
 			counts.values.inject(0) { |result, count| result + count }
 		end
@@ -67,51 +69,35 @@ module Virility
 		end
 
 		#
-		# URL Encoding / Decoding Methods
-		#
-
-		def encode url
-			CGI.escape url
-		end
-
-		def url
-			CGI.unescape @url
-		end
-
-		def escaped_url
-			@url
-		end
-
-		#
-		# Camelize
-		#
-
-		def camelize(lower_case_and_underscored_word, first_letter_in_uppercase = true)
-		  if first_letter_in_uppercase
-		    lower_case_and_underscored_word.to_s.gsub(/\/(.?)/) { "::" + $1.upcase }.gsub(/(^|_)(.)/) { $2.upcase }
-		  else
-		    lower_case_and_underscored_word.first + camelize(lower_case_and_underscored_word)[1..-1]
-		  end
-		end
-
-		#
-		# Convert Class Name To Appropriate Key Symbol
-		#
-
-		def symbolize_for_key(klass)
-			klass.class.to_s.gsub(/Virility::/, '').downcase.to_sym
-		end
-
-		def get_class_string(klass)
-			File.basename(klass).gsub(/\.rb/,'')
-		end
-
-		#
 		# Reflection
 		#
 
 		def attributes
 			{:url => @url, :available_strategies => @strategies.keys}
+		end
+
+		#
+		# Dynamic Methods
+		#
+
+		def get_strategy strategy
+			if strategy_exists?(strategy)
+				@strategies[strategy]
+			else
+				raise UnknownStrategy, "#{strategy} Is Not A Known Strategy"
+			end
+		end
+
+		def strategy_exists? strategy
+			!@strategies[strategy].nil?
+		end
+
+		def method_missing(name, *args, &block)
+			if strategy_exists?(name.to_sym)
+				get_strategy(name.to_sym)
+			else
+				raise UnknownStrategy, "#{name} Is Not A Known Strategy"
+			end
 		end
 
 	end
