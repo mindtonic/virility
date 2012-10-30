@@ -85,7 +85,7 @@ On this particular day, there was a 5,495 count difference between the two value
 
 Stumbleupon and Twitter are consistent while Delicious, Facebook, Pinterest and Google Plus One return different results. Depending on your needs, you could craft an algorithm that takes all of this into account and attempts to deliver an accurate number by combining the data sets that are different and trusting the ones that are the same. 
 
-Based on this logic, it is possible to consider that the true total share count is closer to _253,250_. Not only is this an opinionated numbber, it's accuracy is questionable based on assumptions, however if you are just trying to get a ballpark feeling of the virility of your content, this number should suffice.
+Based on this logic, it is possible to consider that the true total share count is closer to _253,250_. Not only is this an opinionated number, it's accuracy is questionable based on assumptions, however if you are just trying to get a ballpark feeling of the virility of your content, this number should suffice.
 
 ## Contributing
 
