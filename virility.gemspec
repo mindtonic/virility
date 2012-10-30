@@ -11,7 +11,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["mindtonic@gmail.com"]
   gem.description   = "Virility leverages the API's of many popular social services to collect data about the virility of a particular URL."
   gem.summary       = "Virility calls upon the API's of many popular social services such as Facebook, Twitter and Pinterest to collect the number of likes, tweets and pins of a particular URL.  Written with a modular construction, Virility makes it easy to drop new data collection strategies into the framework so that you can collect all of your statistics in one easy location."
-  gem.homepage      = ""
+  gem.homepage      = "http://github.com/mindtonic/virility"
 	# Files
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
