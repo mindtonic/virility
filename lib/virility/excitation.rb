@@ -82,19 +82,19 @@ module Virility
 
 		def get_strategy strategy
 			if strategy_exists?(strategy)
-				@strategies[strategy]
+				@strategies[strategy.to_sym]
 			else
 				raise UnknownStrategy, "#{strategy} Is Not A Known Strategy"
 			end
 		end
 
 		def strategy_exists? strategy
-			!@strategies[strategy].nil?
+			!@strategies[strategy.to_sym].nil?
 		end
 
 		def method_missing(name, *args, &block)
-			if strategy_exists?(name.to_sym)
-				get_strategy(name.to_sym)
+			if strategy_exists?(name)
+				get_strategy(name)
 			else
 				raise UnknownStrategy, "#{name} Is Not A Known Strategy"
 			end
