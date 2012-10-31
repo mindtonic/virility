@@ -1,5 +1,5 @@
 module Virility
-	class Delicious < Context
+	class Delicious < Strategy
 
 		def census
 			self.class.get("http://feeds.delicious.com/v2/json/urlinfo/data?url=#{@url}")

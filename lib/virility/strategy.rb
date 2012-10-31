@@ -1,5 +1,5 @@
 module Virility
-	class Context
+	class Strategy
   	include HTTParty
 		include Virility::Supporter
 

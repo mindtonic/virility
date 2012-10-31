@@ -1,5 +1,5 @@
 module Virility
-	class Facebook < Context
+	class Facebook < Strategy
 		BASE_URL = "https://api.facebook.com/method/fql.query?query=SELECT+share_count%2C+like_count%2C+comment_count%2C+total_count%2C+commentsbox_count%2C+click_count+FROM+link_stat+WHERE+url%3D"
 
 		def poll

@@ -51,8 +51,8 @@ describe "Virility" do
 			Virility.poll(@url).should == {:delicious=>{"url"=>"http://creativeallies.com/", "total_posts"=>50, "top_tags"=>{"graphic"=>1, "art"=>1, "contest"=>1, "photography"=>1, "creativity"=>1, "design"=>1, "online"=>1, "music"=>1, "contests"=>1, "freelance"=>1}, "hash"=>"f9468b2d2842d4a9685af46e1b8e9349", "title"=>"Creative Allies | Create Art For Rockstars"}, :facebook=>{"like_count"=>"977662", "click_count"=>"265614", "share_count"=>"3020040", "comment_count"=>"1118601", "commentsbox_count"=>"0", "total_count"=>"5116303"}, :pinterest=>{"count"=>1, "url"=>"http://creativeallies.com"}, :plus_one=>{"shares"=>"8"}, :stumble_upon=>{"url"=>"http://creativeallies.com/", "in_index"=>true, "publicid"=>"2UhTwK", "views"=>4731, "title"=>"Creative Allies | Create Art For Rockstars | Upload For A Chance To Win", "thumbnail"=>"http://cdn.stumble-upon.com/mthumb/388/49348388.jpg", "thumbnail_b"=>"http://cdn.stumble-upon.com/images/nobthumb.png", "submit_link"=>"http://www.stumbleupon.com/submit/?url=http://creativeallies.com/", "badge_link"=>"http://www.stumbleupon.com/badge/?url=http://creativeallies.com/", "info_link"=>"http://www.stumbleupon.com/url/creativeallies.com/"}, :twitter=>{"count"=>121, "url"=>"http://creativeallies.com/"}}
 		end
 		
-		it "Virility.object should return a Virility::Excitation object" do
-			Virility.object(@url).should be_a_kind_of Virility::Excitation
+		it "Virility.url should return a Virility::Excitation object" do
+			Virility.url(@url).should be_a_kind_of Virility::Excitation
 		end
 	end
 
@@ -66,7 +66,7 @@ describe "Virility" do
 		end
 		
 		it "should return 0 for all strategy counts" do
-			@virility = Virility.object("http://this.is.a.crap.url")
+			@virility = Virility.url("http://this.is.a.crap.url")
 			@virility.total.should == 0
 			@virility.counts.should == {:delicious=>0, :facebook=>0, :pinterest=>0, :plus_one=>0, :stumble_upon=>0, :twitter=>0}
 		end

@@ -1,5 +1,5 @@
 module Virility
-	class StumbleUpon < Context
+	class StumbleUpon < Strategy
 
 	  parser(
 	    Proc.new do |body, format|

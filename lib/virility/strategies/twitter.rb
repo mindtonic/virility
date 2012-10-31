@@ -1,5 +1,5 @@
 module Virility
-	class Twitter < Context
+	class Twitter < Strategy
 	
 		def census
 			self.class.get("http://urls.api.twitter.com/1/urls/count.json?url=#{@url}")

@@ -1,5 +1,5 @@
 module Virility
-	class Pinterest < Context
+	class Pinterest < Strategy
 
 	  parser(
 	    Proc.new do |body, format|

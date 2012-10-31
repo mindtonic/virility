@@ -34,8 +34,8 @@ describe "Excitation" do
 			Virility::Excitation.new(@url).strategies.should be_a_kind_of Hash
 		end
 
-		it "strategies should be inherited from the Context" do
-			Virility::Excitation.new(@url).strategies.first.last.should be_a_kind_of Virility::Context
+		it "strategies should be inherited from the Strategy" do
+			Virility::Excitation.new(@url).strategies.first.last.should be_a_kind_of Virility::Strategy
 		end
 
 		it "should load all of the strategies" do
