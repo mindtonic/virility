@@ -37,23 +37,20 @@ describe "Context" do
 	# Dynamic Methods
 	#
 
-	FB_RESULTS = {"like_count"=>"19", "click_count"=>"0", "share_count"=>"3", "comment_count"=>"0", "commentsbox_count"=>"0", "total_count"=>"22"}
-	FAKE_FB_RESULTS = [:face_count, :pages, :friends]
-
 	describe "dynamic methods" do
 		before(:each) do
 			@virility = Virility::Facebook.new(@url)
-			@virility.stub(:results).and_return(FB_RESULTS)
+			@virility.stub(:results).and_return(Virility::FB_RESULTS)
 		end
 
 		context "overall testing" do
-			FB_RESULTS.each do |key, value|
+			Virility::FB_RESULTS.each do |key, value|
 				it "should return #{value} when get_result is called with #{key}" do
 					@virility.send(key).should == value
 				end
 			end
 
-			FAKE_FB_RESULTS.each do |key|
+			Virility::FAKE_FB_RESULTS.each do |key|
 				it "should_not raise an error if the result (#{key}) does not exist" do
 					lambda { @virility.send(key) }.should_not raise_error
 				end
@@ -67,16 +64,16 @@ describe "Context" do
 		context "result_exists?" do
 			before(:each) do
 				@virility = Virility::Facebook.new(@url)
-				@virility.stub(:results).and_return(FB_RESULTS)
+				@virility.stub(:results).and_return(Virility::FB_RESULTS)
 			end
 
-			FB_RESULTS.keys.each do |result|
+			Virility::FB_RESULTS.keys.each do |result|
 				it "should return true for #{result}" do
 					@virility.result_exists?(result).should be true
 				end
 			end
 
-			FAKE_FB_RESULTS.each do |result|
+			Virility::FAKE_FB_RESULTS.each do |result|
 				it "should return false for #{result}" do
 					@virility.result_exists?(result).should be false
 				end
@@ -84,13 +81,13 @@ describe "Context" do
 		end
 
 		context "get_result" do
-			FB_RESULTS.each do |key, value|
+			Virility::FB_RESULTS.each do |key, value|
 				it "should return #{value} when get_result is called with #{key}" do
 					@virility.get_result(key).should == value
 				end
 			end
 
-			FAKE_FB_RESULTS.each do |key|
+			Virility::FAKE_FB_RESULTS.each do |key|
 				it "should_not raise an error if the result (#{key}) does not exist" do
 					lambda { @virility.send(key) }.should_not raise_error
 				end

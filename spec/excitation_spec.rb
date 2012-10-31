@@ -67,19 +67,16 @@ describe "Excitation" do
 	#
 	# Dynamic Methods
 	#
-	
-	TESTING_STRATEGIES = {:facebook => Virility::Facebook, :twitter => Virility::Twitter, :delicious => Virility::Delicious, :pinterest => Virility::Pinterest, :plus_one => Virility::PlusOne, :stumble_upon => Virility::StumbleUpon}
-	FAKE_TESTING_STRATEGIES = [:digg, :reddit, :linked_in, :instagram, :tumblr]
 
 	describe "dynamic methods" do
 		context "overall testing" do
-			TESTING_STRATEGIES.each do |method, klass|
+			Virility::TESTING_STRATEGIES.each do |method, klass|
 				it "should return a #{klass} object when the method #{method} is called" do
 					Virility::Excitation.new(@url).send(method).should be_a_kind_of klass
 				end
 			end
 
-			FAKE_TESTING_STRATEGIES.each do |method|
+			Virility::FAKE_TESTING_STRATEGIES.each do |method|
 				it "should raise an error if the strategy (#{method}) does not exist" do
 					lambda { Virility::Excitation.new(@url).send(method) }.should raise_error(Virility::UnknownStrategy, "#{method} Is Not A Known Strategy")
 				end
@@ -87,13 +84,13 @@ describe "Excitation" do
 		end
 
 		context "strategy_exists?" do
-			TESTING_STRATEGIES.keys.each do |strategy|
+			Virility::TESTING_STRATEGIES.keys.each do |strategy|
 				it "should return true for #{strategy}" do
 					Virility::Excitation.new(@url).strategy_exists?(strategy).should be true
 				end
 			end
 
-			FAKE_TESTING_STRATEGIES.each do |strategy|
+			Virility::FAKE_TESTING_STRATEGIES.each do |strategy|
 				it "should return false for #{strategy}" do
 					Virility::Excitation.new(@url).strategy_exists?(strategy).should be false
 				end
@@ -101,13 +98,13 @@ describe "Excitation" do
 		end
 
 		context "get_strategy" do
-			TESTING_STRATEGIES.each do |method, klass|
+			Virility::TESTING_STRATEGIES.each do |method, klass|
 				it "should return a #{klass} object when get_strategy is called with #{method}" do
 					Virility::Excitation.new(@url).get_strategy(method).should be_a_kind_of klass
 				end
 			end
 
-			FAKE_TESTING_STRATEGIES.each do |method|
+			Virility::FAKE_TESTING_STRATEGIES.each do |method|
 				it "should raise an error if the strategy (#{method}) does not exist" do
 					lambda { Virility::Excitation.new(@url).get_strategy(method) }.should raise_error(Virility::UnknownStrategy, "#{method} Is Not A Known Strategy")
 				end
