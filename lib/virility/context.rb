@@ -2,16 +2,20 @@ module Virility
 	class Context
   	include HTTParty
 		include Virility::Supporter
-		
+
 		attr_accessor :url, :response, :results
 
 		def initialize url
 			@url = encode url
 			@results = {}
 		end
+		
+		#
+		# Abstract Methods - Delete eventually
+		#
 
-		def poll
-			raise "Abstract Method poll called on #{self.class} - Please define this method"
+		def census
+			raise "Abstract Method census called on #{self.class} - Please define this method"
 		end
 
 		def count
@@ -19,8 +23,33 @@ module Virility
 		end
 		
 		#
+		# Poll
+		#
+		
+		def poll
+			call_strategy
+			collect_results
+		end
+		
+		#
+		# Call Strategy
+		#
+		
+		def call_strategy
+			@response = census
+		end
+
+		#
 		# Results
 		#
+		
+		def collect_results
+			if respond_to?(:outcome)
+				@results = valid_response_test ? outcome : {}
+			else
+				@results = valid_response_test ? @response.parsed_response : {}
+			end
+		end
 
 		def results
 			if @results.empty?
@@ -55,6 +84,14 @@ module Virility
 			else
 				0
 			end
+		end
+
+		#
+		# Parsed Response Test - Overwrite if needed
+		#
+
+		def valid_response_test
+			@response.respond_to?(:parsed_response) and @response.parsed_response.is_a?(Hash)
 		end
 
 	end

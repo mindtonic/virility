@@ -7,13 +7,12 @@ module Virility
 	    end
 	  )
 	
-		def poll
-			@response = self.class.get("http://www.stumbleupon.com/services/1.01/badge.getinfo?url=#{@url}")
-			@results = @response.parsed_response
+		def census
+			self.class.get("http://www.stumbleupon.com/services/1.01/badge.getinfo?url=#{@url}")
 		end
 		
 		def count
-			@results["views"] || 0
+			results["views"] || 0
 		end
 	
 	end

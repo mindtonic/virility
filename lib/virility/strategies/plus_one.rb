@@ -8,13 +8,12 @@ module Virility
 	    end
 	  )
 	
-		def poll
-			@response = self.class.get("https://plusone.google.com/_/+1/fastbutton?url=#{@url}")
-			@results = @response.parsed_response
+		def census
+			self.class.get("https://plusone.google.com/_/+1/fastbutton?url=#{@url}")
 		end
 		
 		def count
-			@results["shares"] || 0
+			results["shares"].to_i || 0
 		end
 	
 	end
