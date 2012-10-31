@@ -1,5 +1,5 @@
 module Virility
 
-	class UnknownStrategy < StandardError; end
+  class UnknownStrategy < StandardError; end
 
 end
