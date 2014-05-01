@@ -20,5 +20,5 @@ Gem::Specification.new do |gem|
   # Development
   gem.add_development_dependency "rspec", "~> 2.6"
   # Dependencies
-  gem.add_dependency "httparty", "~> 0.9.0"
+  gem.add_dependency "httparty", "~> 0.13.1"
 end
