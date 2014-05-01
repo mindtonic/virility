@@ -1,5 +1,6 @@
 require 'cgi'
 require 'httparty'
+require 'multi_json'
 
 require 'virility/version'
 require 'virility/supporter'
