@@ -2,6 +2,8 @@
 
 Virility calls upon the API's of many popular social services such as Facebook, Twitter and Pinterest to collect the number of likes, tweets, pins etc. of a particular URL.  Written with a modular construction, Virility makes it easy to drop new data collection strategies into the framework so that you can collect all of your statistics in one easy location.
 
+View a demo online: http://virility.herokuapp.com/
+
 ## Installation
 
 Add this line to your application's Gemfile:
