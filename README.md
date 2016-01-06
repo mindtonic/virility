@@ -44,6 +44,7 @@ Currently there is support for the following social resources:
 * Pinterest
 * Google Plus One
 * Stumble Upon
+* Linkedin
 
 Each social resource is implemented as a Virility::Strategy and contains at least three methods: poll, results and count.  __poll__ does the work of querying the API to get the data and returns the same hash as the results method, __results__ returns the hashed values that were provided by the social network and __count__ pulls out the individual number of shares for that social network.
 
