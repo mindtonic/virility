@@ -11,7 +11,7 @@ describe "Excitation" do
 
   context "initialization" do
     it "should raise an error if a URL is not set" do
-      lambda {Virility::Excitation.new}.should raise_error
+      expect{Virility::Excitation.new}.to raise_error(ArgumentError, "wrong number of arguments (0 for 1)")
     end
   end
 
@@ -19,11 +19,11 @@ describe "Excitation" do
   # Get Virility
   #
 
-#   context "poll" do
-#     it "should not raise an error" do
-#       lambda {Virility::Excitation.new(@url).poll}.should_not raise_error
-#     end
-#   end
+  context "poll" do
+    it "should not raise an error" do
+      expect{Virility::Excitation.new(@url).poll}.not_to raise_error
+    end
+  end
 
   #
   # Collect Strategies
@@ -31,15 +31,15 @@ describe "Excitation" do
 
   context "collect_strategies" do
     it "should assign a hash to the strategies variable" do
-      Virility::Excitation.new(@url).strategies.should be_a_kind_of Hash
+      expect(Virility::Excitation.new(@url).strategies).to be_a_kind_of Hash
     end
 
     it "strategies should be inherited from the Strategy" do
-      Virility::Excitation.new(@url).strategies.first.last.should be_a_kind_of Virility::Strategy
+      expect(Virility::Excitation.new(@url).strategies.first.last).to be_a_kind_of Virility::Strategy
     end
 
     it "should load all of the strategies" do
-      Virility::Excitation.new(@url).strategies.count.should == Dir[File.join('lib', 'virility', 'strategies', '**', '*')].count { |file| File.file?(file) }
+      expect(Virility::Excitation.new(@url).strategies.count).to eq(Dir[File.join('lib', 'virility', 'strategies', '**', '*')].count { |file| File.file?(file) })
     end
   end
 
@@ -50,7 +50,7 @@ describe "Excitation" do
   context "encode" do
     it "should encode the url" do
       v = Virility::Excitation.new(@url)
-      v.encode(@url).should == "http%3A%2F%2Fcreativeallies.com"
+      expect(v.encode(@url)).to eq("http%3A%2F%2Fcreativeallies.com")
     end
   end
 
@@ -60,7 +60,7 @@ describe "Excitation" do
 
   context "symbolize_for_key" do
     it "should return a symbol with the name of the class" do
-      Virility::Excitation.new(@url).symbolize_for_key(Virility::Excitation.new(@url)).should == :excitation
+      expect(Virility::Excitation.new(@url).symbolize_for_key(Virility::Excitation.new(@url))).to eq(:excitation)
     end
   end
 
@@ -72,13 +72,13 @@ describe "Excitation" do
     context "overall testing" do
       Virility::TESTING_STRATEGIES.each do |method, klass|
         it "should return a #{klass} object when the method #{method} is called" do
-          Virility::Excitation.new(@url).send(method).should be_a_kind_of klass
+          expect(Virility::Excitation.new(@url).send(method)).to be_a_kind_of(klass)
         end
       end
 
       Virility::FAKE_TESTING_STRATEGIES.each do |method|
         it "should raise an error if the strategy (#{method}) does not exist" do
-          lambda { Virility::Excitation.new(@url).send(method) }.should raise_error(Virility::UnknownStrategy, "#{method} Is Not A Known Strategy")
+          expect{ Virility::Excitation.new(@url).send(method) }.to raise_error(Virility::UnknownStrategy, "#{method} Is Not A Known Strategy")
         end
       end
     end
@@ -86,13 +86,13 @@ describe "Excitation" do
     context "strategy_exists?" do
       Virility::TESTING_STRATEGIES.keys.each do |strategy|
         it "should return true for #{strategy}" do
-          Virility::Excitation.new(@url).strategy_exists?(strategy).should be true
+          expect(Virility::Excitation.new(@url).strategy_exists?(strategy)).to be(true)
         end
       end
 
       Virility::FAKE_TESTING_STRATEGIES.each do |strategy|
         it "should return false for #{strategy}" do
-          Virility::Excitation.new(@url).strategy_exists?(strategy).should be false
+          expect(Virility::Excitation.new(@url).strategy_exists?(strategy)).to be(false)
         end
       end
     end
@@ -100,17 +100,15 @@ describe "Excitation" do
     context "get_strategy" do
       Virility::TESTING_STRATEGIES.each do |method, klass|
         it "should return a #{klass} object when get_strategy is called with #{method}" do
-          Virility::Excitation.new(@url).get_strategy(method).should be_a_kind_of klass
+          expect(Virility::Excitation.new(@url).get_strategy(method)).to be_a_kind_of(klass)
         end
       end
 
       Virility::FAKE_TESTING_STRATEGIES.each do |method|
         it "should raise an error if the strategy (#{method}) does not exist" do
-          lambda { Virility::Excitation.new(@url).get_strategy(method) }.should raise_error(Virility::UnknownStrategy, "#{method} Is Not A Known Strategy")
+          expect(lambda { Virility::Excitation.new(@url).get_strategy(method) }).to raise_error(Virility::UnknownStrategy, "#{method} Is Not A Known Strategy")
         end
       end
     end
-
   end
-
 end

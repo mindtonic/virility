@@ -18,8 +18,8 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
   # Development
-  gem.add_development_dependency "rspec", "~> 2.6"
+  gem.add_development_dependency "rspec", "~> 3.4"
   # Dependencies
   gem.add_dependency "httparty", "~> 0.13"
-  gem.add_dependency "multi_json", "~> 1.0"
+  gem.add_dependency "multi_json", "~> 1.11"
 end
