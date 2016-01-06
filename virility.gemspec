@@ -19,6 +19,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   # Development
   gem.add_development_dependency "rspec", "~> 3.4"
+  gem.add_development_dependency "pry", "~> 0.10"
   # Dependencies
   gem.add_dependency "httparty", "~> 0.13"
   gem.add_dependency "multi_json", "~> 1.11"

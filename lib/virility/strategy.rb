@@ -3,13 +3,14 @@ module Virility
     include HTTParty
     include Virility::Supporter
 
-    attr_accessor :url, :response, :results
+    attr_accessor :url, :response, :results, :original_url
 
     def initialize url
-      @url = encode url
+      @original_url = url
+      @url = encode(url)
       @results = {}
     end
-    
+
     #
     # Abstract Methods - Delete eventually
     #
@@ -21,20 +22,20 @@ module Virility
     def count
       raise "Abstract Method count called on #{self.class} - Please define this method"
     end
-    
+
     #
     # Poll
     #
-    
+
     def poll
       call_strategy
       collect_results
     end
-    
+
     #
     # Call Strategy
     #
-    
+
     def call_strategy
       @response = census
     end
@@ -42,7 +43,7 @@ module Virility
     #
     # Results
     #
-    
+
     def collect_results
       if respond_to?(:outcome)
         @results = valid_response_test ? outcome : {}

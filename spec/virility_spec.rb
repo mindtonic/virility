@@ -31,7 +31,6 @@ describe "Virility" do
   describe "Public API testing" do
     before(:each) do
       @url = "http://creativeallies.com"
-      allow(Virility::Delicious).to receive(:get) { double("HTTParty::Response", :parsed_response => {"url"=>"http://creativeallies.com/", "total_posts"=>50, "top_tags"=>{"graphic"=>1, "art"=>1, "contest"=>1, "photography"=>1, "creativity"=>1, "design"=>1, "online"=>1, "music"=>1, "contests"=>1, "freelance"=>1}, "hash"=>"f9468b2d2842d4a9685af46e1b8e9349", "title"=>"Creative Allies | Create Art For Rockstars"}) }
       allow(Virility::Facebook).to receive(:get) { double("HTTParty::Response", :parsed_response => {"fql_query_response"=>{"list"=>"true", "link_stat"=>{"like_count"=>"977662", "click_count"=>"265614", "share_count"=>"3020040", "comment_count"=>"1118601", "commentsbox_count"=>"0", "total_count"=>"5116303"}}}) }
       allow(Virility::Pinterest).to receive(:get) { double("HTTParty::Response", :parsed_response => {"count"=>1, "url"=>"http://creativeallies.com"}) }
       allow(Virility::PlusOne).to receive(:get) { double("HTTParty::Response", :parsed_response => {"shares"=>"8"}) }
@@ -40,15 +39,15 @@ describe "Virility" do
     end
 
     it "Virility.counts should return a hash of counts" do
-      expect(Virility.counts(@url)).to eq({:delicious=>50, :facebook=>5116303, :pinterest=>1, :plus_one=>8, :stumble_upon=>4731, :twitter=>121})
+      expect(Virility.counts(@url)).to eq({:facebook=>5116303, :pinterest=>1, :plus_one=>8, :stumble_upon=>4731, :twitter=>121})
     end
 
     it "Virility.total should return the total count" do
-      expect(Virility.total(@url)).to eq(5121214)
+      expect(Virility.total(@url)).to eq(5121164)
     end
 
     it "Virility.poll should return all of the hashed responses" do
-      expect(Virility.poll(@url)).to eq({:delicious=>{"url"=>"http://creativeallies.com/", "total_posts"=>50, "top_tags"=>{"graphic"=>1, "art"=>1, "contest"=>1, "photography"=>1, "creativity"=>1, "design"=>1, "online"=>1, "music"=>1, "contests"=>1, "freelance"=>1}, "hash"=>"f9468b2d2842d4a9685af46e1b8e9349", "title"=>"Creative Allies | Create Art For Rockstars"}, :facebook=>{"like_count"=>"977662", "click_count"=>"265614", "share_count"=>"3020040", "comment_count"=>"1118601", "commentsbox_count"=>"0", "total_count"=>"5116303"}, :pinterest=>{"count"=>1, "url"=>"http://creativeallies.com"}, :plus_one=>{"shares"=>"8"}, :stumble_upon=>{"url"=>"http://creativeallies.com/", "in_index"=>true, "publicid"=>"2UhTwK", "views"=>4731, "title"=>"Creative Allies | Create Art For Rockstars | Upload For A Chance To Win", "thumbnail"=>"http://cdn.stumble-upon.com/mthumb/388/49348388.jpg", "thumbnail_b"=>"http://cdn.stumble-upon.com/images/nobthumb.png", "submit_link"=>"http://www.stumbleupon.com/submit/?url=http://creativeallies.com/", "badge_link"=>"http://www.stumbleupon.com/badge/?url=http://creativeallies.com/", "info_link"=>"http://www.stumbleupon.com/url/creativeallies.com/"}, :twitter=>{"count"=>121, "url"=>"http://creativeallies.com/"}})
+      expect(Virility.poll(@url)).to eq({:facebook=>{"like_count"=>"977662", "click_count"=>"265614", "share_count"=>"3020040", "comment_count"=>"1118601", "commentsbox_count"=>"0", "total_count"=>"5116303"}, :pinterest=>{"count"=>1, "url"=>"http://creativeallies.com"}, :plus_one=>{"shares"=>"8"}, :stumble_upon=>{"url"=>"http://creativeallies.com/", "in_index"=>true, "publicid"=>"2UhTwK", "views"=>4731, "title"=>"Creative Allies | Create Art For Rockstars | Upload For A Chance To Win", "thumbnail"=>"http://cdn.stumble-upon.com/mthumb/388/49348388.jpg", "thumbnail_b"=>"http://cdn.stumble-upon.com/images/nobthumb.png", "submit_link"=>"http://www.stumbleupon.com/submit/?url=http://creativeallies.com/", "badge_link"=>"http://www.stumbleupon.com/badge/?url=http://creativeallies.com/", "info_link"=>"http://www.stumbleupon.com/url/creativeallies.com/"}, :twitter=>{"count"=>121, "url"=>"http://creativeallies.com/"}})
     end
 
     it "Virility.url should return a Virility::Excitation object" do
@@ -68,7 +67,7 @@ describe "Virility" do
     it "should return 0 for all strategy counts" do
       @virility = Virility.url("http://this.is.a.crap.url")
       expect(@virility.total).to eq(0)
-      expect(@virility.counts).to eq({:delicious=>0, :facebook=>0, :pinterest=>0, :plus_one=>0, :stumble_upon=>0, :twitter=>0})
+      expect(@virility.counts).to eq({:facebook=>0, :pinterest=>0, :plus_one=>0, :stumble_upon=>0, :twitter=>0})
     end
   end
 end

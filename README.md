@@ -41,7 +41,6 @@ The Virility::Excitation object does the heavy lifting of collecting the data fr
 Currently there is support for the following social resources:
 * Facebook
 * Twitter
-* Delicious
 * Pinterest
 * Google Plus One
 * Stumble Upon
@@ -133,7 +132,7 @@ On this particular day, there was a 5,495 count difference between the two value
     Virility::Excitation.new("http://www.ruby-lang.org/en/").counts
     # => {:delicious=>4314, :facebook=>813, :pinterest=>22, :plusone=>406, :stumbleupon=>246937, :twitter=>698}
 
-Stumbleupon and Twitter are consistent while Delicious, Facebook, Pinterest and Google Plus One return different results. Depending on your needs, you could craft an algorithm that takes all of this into account and attempts to deliver an accurate number by combining the data sets that are different and trusting the ones that are the same.
+Stumbleupon and Twitter are consistent while Facebook, Pinterest and Google Plus One return different results. Depending on your needs, you could craft an algorithm that takes all of this into account and attempts to deliver an accurate number by combining the data sets that are different and trusting the ones that are the same.
 
 Based on this logic, it is possible to consider that the true total share count is closer to _253,250_. Not only is this an opinionated number, it's accuracy is questionable based on assumptions, however if you are just trying to get a ballpark feeling of the virility of your content, this number should suffice.
 
