@@ -65,10 +65,12 @@ module Virility
     # Gather all of the Strategies
     #
 
-    def collect_strategies(exclude_strategies)
-      strategies = Dir["#{File.dirname(__FILE__)}/strategies/**/*.rb"]
-      exclude_strategies.each { |x| strategies.delete_if { |s| s.end_with?(x + '.rb') } }
-      strategies.each { |klass| @strategies[get_class_string(klass).to_sym] = Virility.const_get(camelize(get_class_string(klass))).new(@url) }
+    def collect_strategies
+      Dir["#{File.dirname(__FILE__)}/strategies/**/*.rb"].each { |klass| @strategies[get_class_string(klass).to_sym] = Virility.const_get(camelize(get_class_string(klass))).new(@url) }
+    end
+
+    def filter_strategies
+      @strategies.select! { |k, _v| @filter_strategies.include?(k) }
     end
 
     def filter_strategies
