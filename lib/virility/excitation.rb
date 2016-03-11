@@ -70,6 +70,7 @@ module Virility
     end
 
     def filter_strategies
+      return if @filter_strategies.empty?
       @strategies.select! { |k, _v| @filter_strategies.include?(k) }
     end
 

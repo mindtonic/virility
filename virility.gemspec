@@ -21,6 +21,8 @@ Gem::Specification.new do |gem|
   # Development
   gem.add_development_dependency "rspec", "~> 3.4"
   gem.add_development_dependency "pry", "~> 0.10"
+  gem.add_development_dependency 'guard-rspec', '~> 4.6.4'   # Guard integration for rspec
+  gem.add_development_dependency 'guard-bundler', '~> 2.1.0' # Guard integration for bundler
   # Dependencies
   gem.add_dependency "httparty", "~> 0.11"
   gem.add_dependency "multi_json", "~> 1.11"

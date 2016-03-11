@@ -66,8 +66,8 @@ describe "Virility" do
         :stumble_upon=>{"url"=>"http://creativeallies.com/", "in_index"=>true, "publicid"=>"2UhTwK", "views"=>4731, "title"=>"Creative Allies | Create Art For Rockstars | Upload For A Chance To Win", "thumbnail"=>"http://cdn.stumble-upon.com/mthumb/388/49348388.jpg", "thumbnail_b"=>"http://cdn.stumble-upon.com/images/nobthumb.png", "submit_link"=>"http://www.stumbleupon.com/submit/?url=http://creativeallies.com/", "badge_link"=>"http://www.stumbleupon.com/badge/?url=http://creativeallies.com/", "info_link"=>"http://www.stumbleupon.com/url/creativeallies.com/"}
       })
     end
-    it "Virility.poll should return all of the hashed responses with exclusions excluded" do
-      expect(Virility.poll(@url,['twitter'])).to eq({
+    it "Virility.poll should return all of the hashed responses with filtered strategies only" do
+      expect(Virility.poll(@url,[:facebook,:linkedin,:pinterest,:plus_one,:stumble_upon])).to eq({
         :facebook=>{"like_count"=>"977662", "click_count"=>"265614", "share_count"=>"3020040", "comment_count"=>"1118601", "commentsbox_count"=>"0", "total_count"=>"5116303"},
         :linkedin=>{ "count":17, "fCnt":"17", "fCntPlusOne":"18", "url":"http:\/\/creativeallies.com" },
         :pinterest=>{"count"=>1, "url"=>"http://creativeallies.com"},
