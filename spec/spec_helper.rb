@@ -24,9 +24,11 @@ module Virility
     :twitter => Virility::Twitter,
     :pinterest => Virility::Pinterest,
     :plus_one => Virility::PlusOne,
-    :stumble_upon => Virility::StumbleUpon
+    :stumble_upon => Virility::StumbleUpon,
+    :linkedin => Virility::Linkedin,
+    :reddit => Virility::Reddit
   }
-  FAKE_TESTING_STRATEGIES = [:digg, :reddit, :linked_in, :instagram, :tumblr]
+  FAKE_TESTING_STRATEGIES = [:digg, :instagram, :tumblr]
 
   FB_RESULTS = {"like_count"=>"19", "click_count"=>"0", "share_count"=>"3", "comment_count"=>"0", "commentsbox_count"=>"0", "total_count"=>"22"}
   FAKE_FB_RESULTS = [:face_count, :pages, :friends]

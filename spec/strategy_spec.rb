@@ -11,7 +11,7 @@ describe "Strategy" do
 
   context "initialization" do
     it "should raise an error if a URL is not set" do
-      expect{Virility::Strategy.new}.to raise_error(ArgumentError, "wrong number of arguments (0 for 1)")
+      expect{Virility::Strategy.new}.to raise_error(ArgumentError, "wrong number of arguments (given 0, expected 1)")
     end
 
     it "should set and encode the url" do

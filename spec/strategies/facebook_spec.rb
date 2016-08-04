@@ -20,7 +20,7 @@ describe "Virility::Facebook" do
   describe "poll" do
     context "when there is not a valid result" do
       before(:each) do
-        response = double("HTTParty::Response", :parsed_response => {"fql_query_response"=>{"list"=>"true"}})
+        response = double("HTTParty::Response", :parsed_response => {"links_getStats_response"=>{"list"=>"true"}})
         allow(Virility::Facebook).to receive(:get) { response }
         @virility = Virility::Facebook.new(@url)
       end
@@ -38,7 +38,7 @@ describe "Virility::Facebook" do
       it_should_behave_like "no facebook results"
     end
 
-    context "when there is a result but no fql_query_response" do
+    context "when there is a result but no links_getStats_response" do
       before(:each) do
         response = double("HTTParty::Response", :parsed_response => {})
         allow(Virility::Facebook).to receive(:get) { response }
@@ -60,7 +60,7 @@ describe "Virility::Facebook" do
 
     context "when there is a valid result" do
       before(:each) do
-        response = double("HTTParty::Response", :parsed_response => {"fql_query_response"=>{"list"=>"true", "link_stat"=>{"like_count"=>"977662", "click_count"=>"265614", "share_count"=>"3020040", "comment_count"=>"1118601", "commentsbox_count"=>"0", "total_count"=>"5116303"}}})
+        response = double("HTTParty::Response", :parsed_response => {"links_getStats_response"=>{"list"=>"true", "link_stat"=>{"like_count"=>"977662", "click_count"=>"265614", "share_count"=>"3020040", "comment_count"=>"1118601", "commentsbox_count"=>"0", "total_count"=>"5116303"}}})
         allow(Virility::Facebook).to receive(:get) { response }
         @virility = Virility::Facebook.new(@url)
       end
@@ -78,7 +78,7 @@ describe "Virility::Facebook" do
 
     context "when there is a valid result, but not all fields are present" do
       before(:each) do
-        response = double("HTTParty::Response", :parsed_response => {"fql_query_response"=>{"list"=>"true", "link_stat"=>{"like_count"=>"977662", "comment_count"=>"1118601", "commentsbox_count"=>"0", "total_count"=>"5116303"}}})
+        response = double("HTTParty::Response", :parsed_response => {"links_getStats_response"=>{"list"=>"true", "link_stat"=>{"like_count"=>"977662", "comment_count"=>"1118601", "commentsbox_count"=>"0", "total_count"=>"5116303"}}})
         allow(Virility::Facebook).to receive(:get) { response }
         @virility = Virility::Facebook.new(@url)
       end

@@ -1,23 +1,22 @@
 module Virility
   class Facebook < Strategy
-    BASE_URL = "https://api.facebook.com/method/fql.query?query=SELECT+share_count%2C+like_count%2C+comment_count%2C+total_count%2C+commentsbox_count%2C+click_count+FROM+link_stat+WHERE+url%3D"
-
+    BASE_URL = "https://api.facebook.com/method/links.getStats?urls="
     def census
-      self.class.get("#{BASE_URL}%22#{@url}%22")
+      self.class.get("#{BASE_URL}#{@url}")
     end
-    
+
     def outcome
-			@response.parsed_response["fql_query_response"]["link_stat"]
+      @response.parsed_response["links_getStats_response"]["link_stat"]
     end
 
     def count
       results["total_count"] || 0
     end
-    
+
   private
-  
+
     def valid_response_test
-      @response.respond_to?(:parsed_response) and @response.parsed_response.is_a?(Hash) and !@response.parsed_response["fql_query_response"].nil? and !@response.parsed_response["fql_query_response"]["link_stat"].nil?
+      @response.respond_to?(:parsed_response) and @response.parsed_response.is_a?(Hash) and !@response.parsed_response["links_getStats_response"].nil? and !@response.parsed_response["links_getStats_response"]["link_stat"].nil?
     end
 
   end
