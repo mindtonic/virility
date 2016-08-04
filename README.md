@@ -1,6 +1,6 @@
 # Virility
 
-Virility calls upon the API's of many popular social services such as Facebook, Twitter and Pinterest to collect the number of likes, tweets, pins etc. of a particular URL.  Written with a modular construction, Virility makes it easy to drop new data collection strategies into the framework so that you can collect all of your statistics in one easy location.
+Virility calls upon the API's of many popular social services such as Facebook, Reddit and Pinterest to collect the number of likes, tweets, pins etc. of a particular URL.  Written with a modular construction, Virility makes it easy to drop new data collection strategies into the framework so that you can collect all of your statistics in one easy location.
 
 View a demo online: http://virility.herokuapp.com/
 
@@ -23,7 +23,7 @@ Or install it yourself as:
 If all you need is the raw shares numbers for a URL, Virility has some very simple methods you can use right out of the box:
 
     Virility.poll("http://rubygems.org")   # => Returns a hash with the collected results from all of the social network strategies
-    Virility.counts("http://rubygems.org") # => {:delicious=>0, :facebook=>72, :pinterest=>0, :plus_one=>138, :stumble_upon=>1488, :twitter=>2322}
+    Virility.counts("http://rubygems.org") # => {:delicious=>0, :facebook=>72, :pinterest=>0, :plus_one=>138, :stumble_upon=>1488, :reddit=>2322}
     Virility.total("http://rubygems.org")  # => 4020
     Virility.url("http://rubygems.org")    # => Returns a Virility::Excitation object that you can manipulate
 
@@ -33,16 +33,17 @@ The Virility::Excitation object does the heavy lifting of collecting the data fr
 
     virility = Virility::Excitation.new("http://rubygems.org")
     virility.poll   # returns a hash with the collected output of all data sources
-    virility.counts # returns a hash of just the virility counts => {:delicious=>943, :facebook=>72, :pinterest=>0, :plusone=>137, :stumbleupon=>1488, :twitter=>2319}
+    virility.counts # returns a hash of just the virility counts => {:facebook=>5116303, :linkedin => 17, :pinterest=>1, :plus_one=>8, reddit:35, :stumble_upon=>4731 }
     virility.total  # returns the sum of all virility counts
 
 ## Individual Strategies
 
 Currently there is support for the following social resources:
 * Facebook
-* Twitter
+* Linkedin
 * Pinterest
 * Google Plus One
+* Reddit
 * Stumble Upon
 
 Each social resource is implemented as a Virility::Strategy and contains at least three methods: poll, results and count.  __poll__ does the work of querying the API to get the data and returns the same hash as the results method, __results__ returns the hashed values that were provided by the social network and __count__ pulls out the individual number of shares for that social network.
@@ -53,19 +54,25 @@ There are several ways you can access the object for an individual strategy.
 
 The Virility object has a __factory__ method that will return the strategy object:
 
-    tweets = Virility.factory(:twitter, "http://rubygems.org") # => returns a Virility::Twitter object with the rubygems url
+    tweets = Virility.factory(:reddit, "http://rubygems.org") # => returns a Virility::Reddit object with the rubygems url
 
-You can also instate the Virility::Twitter object directly:
+You can also instate the Virility::Reddit object directly:
 
-    tweets = Virility::Twitter.new("http://rubygems.org")
+    tweets = Virility::Reddit.new("http://rubygems.org")
+
+#### Ignoring Strategies
+
+Thanks to (Storyful)[https://github.com/storyful/virility], it is now possible to specify which strategies you want to use when initializing the Excitation object. Simply pass in an array of identifiers when creating the object and only those strategies will be implemented. The default is to use all available strategies.
+
+    Virility.poll("http://rubygems.org",[:facebook,:linkedin,:pinterest])
 
 #### Individual Usage Example
 
-Let's say you only need to get the number of tweets for a URL, you could use the Virility::Twitter class by itself:
+Let's say you only need to get the number of tweets for a URL, you could use the Virility::Reddit class by itself:
 
-    tweets = Virility::Twitter.new("http://rubygems.org")
-    tweets.poll    # returns a hash with the collected output from Twitter => {"url"=>"http://rubygems.org/", "count"=>2319}
-    tweets.results # returns a hash with the collected output from Twitter => {"url"=>"http://rubygems.org/", "count"=>2319}
+    tweets = Virility::Reddit.new("http://rubygems.org")
+    tweets.poll    # returns a hash with the collected output from Reddit => {"url"=>"http://rubygems.org/", "count"=>2319}
+    tweets.results # returns a hash with the collected output from Reddit => {"url"=>"http://rubygems.org/", "count"=>2319}
     tweets.count   # returns the number of tweets for that URL => 2319
 
 ## Facebook Usage
@@ -82,16 +89,14 @@ The Facebook strategy leverages the FQL query against the link_stat table. Becau
 * commentsbox_count
 * total_count (used as the default count for all Facebook activity)
 
-## Dynamic Finders
-
 #### Virility::Excitation
 
 If you have a Virility::Excitation object, there are dynamic finders that will return the individual Virility::Strategy object for a social network. Simply call the name of the strategy against the Virility::Excitation object and that strategy will be returned:
 
     virility     = Virility::Excitation.new("http://rubygems.org")
     facebook     = virility.facebook
-    twitter      = virility.twitter
-    delicious    = virility.delicious
+    linkedin     = virility.linkedin
+    reddit       = virility.reddit
     pinterest    = virility.pinterest
     plus_one     = virility.plus_one
     stumble_upon = virility.stumble_upon
@@ -127,12 +132,12 @@ Compare the total count results for http://ruby-lang.org/en. One has the trailin
 On this particular day, there was a 5,495 count difference between the two values. Inspecting the actual results shows you which of the social networks takes the varying forms of the urls into account:
 
     Virility::Excitation.new("http://www.ruby-lang.org/en").counts
-    # => {:delicious=>37, :facebook=>3, :pinterest=>0, :plusone=>20, :stumbleupon=>246937, :twitter=>698}
+    # => {:delicious=>37, :facebook=>3, :pinterest=>0, :plusone=>20, :stumbleupon=>246937}
 
     Virility::Excitation.new("http://www.ruby-lang.org/en/").counts
-    # => {:delicious=>4314, :facebook=>813, :pinterest=>22, :plusone=>406, :stumbleupon=>246937, :twitter=>698}
+    # => {:delicious=>4314, :facebook=>813, :pinterest=>22, :plusone=>406, :stumbleupon=>246937}
 
-Stumbleupon and Twitter are consistent while Facebook, Pinterest and Google Plus One return different results. Depending on your needs, you could craft an algorithm that takes all of this into account and attempts to deliver an accurate number by combining the data sets that are different and trusting the ones that are the same.
+Stumbleupon is consistent while Facebook, Pinterest and Google Plus One return different results. Depending on your needs, you could craft an algorithm that takes all of this into account and attempts to deliver an accurate number by combining the data sets that are different and trusting the ones that are the same.
 
 Based on this logic, it is possible to consider that the true total share count is closer to _253,250_. Not only is this an opinionated number, it's accuracy is questionable based on assumptions, however if you are just trying to get a ballpark feeling of the virility of your content, this number should suffice.
 
@@ -146,5 +151,5 @@ Based on this logic, it is possible to consider that the true total share count 
 
 ## Copyright
 
-Copyright (c) 2012 Jay Sanders. See LICENSE.txt for
+Copyright (c) 2016 Jay Sanders. See LICENSE.txt for
 further details.

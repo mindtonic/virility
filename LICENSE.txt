@@ -1,4 +1,4 @@
-Copyright (c) 2012 Jay Sanders
+Copyright (c) 2016 Jay Sanders
 
 MIT License
 
