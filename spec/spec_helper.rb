@@ -21,7 +21,6 @@ end
 module Virility
   TESTING_STRATEGIES = {
     :facebook => Virility::Facebook,
-    :twitter => Virility::Twitter,
     :pinterest => Virility::Pinterest,
     :plus_one => Virility::PlusOne,
     :stumble_upon => Virility::StumbleUpon,
