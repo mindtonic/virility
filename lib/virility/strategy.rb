@@ -5,7 +5,7 @@ module Virility
 
     attr_accessor :url, :response, :results, :original_url, :http_proxyaddr, :http_proxyport
 
-    def initialize(url, proxy)
+    def initialize(url, proxy: {})
       @original_url = url
       @url = encode(url)
       @results = {}
