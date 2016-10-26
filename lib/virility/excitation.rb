@@ -2,17 +2,19 @@ module Virility
   class Excitation
     include Virility::Supporter
 
-    attr_accessor :url, :results, :strategies, :counts
+    attr_accessor :url, :results, :strategies, :counts, :proxy
 
     #
     # Initialization
     #
-    def initialize(url, strategies = [])
+    def initialize(url, strategies = [], proxy:)
       @url = url
       @strategies = {}
       @results = {}
       @counts = {}
       @filter_strategies = strategies || []
+      @http_proxyaddr = proxy.dig(:http_proxyaddr)
+      @http_proxyport = proxy.dig(:http_proxyport)
       collect_strategies
       filter_strategies
     end

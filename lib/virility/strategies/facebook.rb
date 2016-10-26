@@ -4,7 +4,7 @@ module Virility
     BASE_URL = 'https://graph.facebook.com/?fields=share,og_object{engagement,title}&id='.freeze
 
     def census
-      self.class.get("#{BASE_URL}#{@url}")
+      self.class.get("#{BASE_URL}#{@url}", http_proxyaddr: @http_proxyaddr, http_proxyport: @http_proxyport)
     end
 
     def outcome
@@ -24,22 +24,5 @@ module Virility
     def valid_response_test
       @response.respond_to?(:parsed_response) && @response.parsed_response.is_a?(Hash) && !@response.parsed_response['share'].nil?
     end
-
   end
 end
-
-# {
-# share: {
-# comment_count: 4,
-# share_count: 97173
-# },
-# og_object: {
-# engagement: {
-# count: 97384,
-# social_sentence: "97K people like this."
-# },
-# title: "Guardians of the Galaxy (2014)",
-# id: "10150298925420108"
-# },
-# id: "http://www.imdb.com/title/tt2015381/"
-# }

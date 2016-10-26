@@ -6,7 +6,7 @@ module Virility
     end
 
     def census
-      self.class.get("http://www.reddit.com/api/info.json?&url=#{@url}")
+      self.class.get("http://www.reddit.com/api/info.json?&url=#{@url}", http_proxyaddr: @http_proxyaddr, http_proxyport: @http_proxyport)
     end
 
     def count
