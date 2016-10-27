@@ -38,7 +38,7 @@ describe "Virility::Facebook" do
       it_should_behave_like "no facebook results"
     end
 
-    context "when there is a result but no links_getStats_response" do
+    context "when there is a result but no response" do
       before(:each) do
         response = double("HTTParty::Response", :parsed_response => {})
         allow(Virility::Facebook).to receive(:get) { response }

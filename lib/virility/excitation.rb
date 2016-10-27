@@ -7,14 +7,13 @@ module Virility
     #
     # Initialization
     #
-    def initialize(url, strategies = [], proxy:)
+    def initialize(url, strategies = [], proxy: {})
       @url = url
       @strategies = {}
       @results = {}
       @counts = {}
       @filter_strategies = strategies || []
-      @http_proxyaddr = proxy.dig(:http_proxyaddr)
-      @http_proxyport = proxy.dig(:http_proxyport)
+      @proxy = proxy
       collect_strategies
       filter_strategies
     end
@@ -68,7 +67,7 @@ module Virility
     #
 
     def collect_strategies
-      Dir["#{File.dirname(__FILE__)}/strategies/**/*.rb"].each { |klass| @strategies[get_class_string(klass).to_sym] = Virility.const_get(camelize(get_class_string(klass))).new(@url) }
+      Dir["#{File.dirname(__FILE__)}/strategies/**/*.rb"].each { |klass| @strategies[get_class_string(klass).to_sym] = Virility.const_get(camelize(get_class_string(klass))).new(@url, proxy: @proxy) }
     end
 
     def filter_strategies

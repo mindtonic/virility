@@ -16,7 +16,7 @@ module Virility
     end
 
     def count
-      results.dig('og_object', 'engagement', 'count') || 0
+      results.dig('engagement_count') || 0
     end
 
   private

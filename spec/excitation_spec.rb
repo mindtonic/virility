@@ -11,7 +11,7 @@ describe "Excitation" do
 
   context "initialization" do
     it "should raise an error if a URL is not set" do
-      expect{Virility::Excitation.new}.to raise_error(ArgumentError, "wrong number of arguments (0 for 1..2)")
+      expect{Virility::Excitation.new}.to raise_error(ArgumentError, "wrong number of arguments (given 0, expected 1..2)")
     end
   end
 
