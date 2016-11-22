@@ -87,7 +87,7 @@ Let's say you only need to get the number of tweets for a URL, you could use the
     fb.poll  # returns a hash with the collected output from Facebook
     fb.count # returns the engagement_count for that URL
 
-The Facebook strategy leverages the 2.1 api call. Because of this, the following data fields are available:
+The Facebook strategy leverages the Graph api call. Because of this, the following data fields are available:
 * comment_count
 * share_count
 * engagement_count
