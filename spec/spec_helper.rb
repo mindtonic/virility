@@ -28,8 +28,7 @@ module Virility
     :reddit => Virility::Reddit
   }
   FAKE_TESTING_STRATEGIES = [:digg, :instagram, :tumblr]
-
-  FB_RESULTS = {"like_count"=>"19", "click_count"=>"0", "share_count"=>"3", "comment_count"=>"0", "commentsbox_count"=>"0", "total_count"=>"22"}
+  FB_RESULTS  = { 'comment_count' => '4', 'share_count' => '97173', 'engagement_count' => '97384', 'social_sentence' => "97K people like this."}
   FAKE_FB_RESULTS = [:face_count, :pages, :friends]
 end
 

@@ -10,7 +10,7 @@ describe "Virility::Facebook" do
       expect{ @virility.poll }.not_to raise_error
     end
 
-    ["like_count", "click_count", "share_count", "comment_count", "commentsbox_count", "total_count"].each do |attribute|
+    ["share_count", "comment_count", "engagement"].each do |attribute|
       it "should return 0 for #{attribute}" do
         expect(@virility.send(attribute.to_sym)).to eq(0)
       end
