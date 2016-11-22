@@ -68,7 +68,7 @@ describe "Virility" do
     end
     it "Virility.poll should return all of the hashed responses with filtered strategies only" do
       expect(Virility.poll(@url,[:facebook,:linkedin,:pinterest,:plus_one,:stumble_upon])).to eq({
-        :facebook=>{"like_count"=>"977662", "click_count"=>"265614", "share_count"=>"3020040", "comment_count"=>"1118601", "commentsbox_count"=>"0", "total_count"=>"5116303"},
+        :facebook=>{"share_count"=>"97173", "engagement_count"=>'97384', "comment_count"=>"4", 'social_sentence' => "97K people like this."},
         :linkedin=>{ "count":17, "fCnt":"17", "fCntPlusOne":"18", "url":"http:\/\/creativeallies.com" },
         :pinterest=>{"count"=>1, "url"=>"http://creativeallies.com"},
         :plus_one=>{"shares"=>"8"},
