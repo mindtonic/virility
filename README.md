@@ -23,7 +23,7 @@ Or install it yourself as:
 If all you need is the raw shares numbers for a URL, Virility has some very simple methods you can use right out of the box:
 
     Virility.poll("http://rubygems.org")   # => Returns a hash with the collected results from all of the social network strategies
-    Virility.counts("http://rubygems.org") # => {:delicious=>0, :facebook=>72, :pinterest=>0, :plus_one=>138, :stumble_upon=>1488, :reddit=>2322}
+    Virility.counts("http://rubygems.org") # => {:facebook=>72, :pinterest=>0, :plus_one=>138, :stumble_upon=>1488, :reddit=>2322, :linkedin => 7}
     Virility.total("http://rubygems.org")  # => 4020
     Virility.url("http://rubygems.org")    # => Returns a Virility::Excitation object that you can manipulate
 
@@ -54,17 +54,23 @@ There are several ways you can access the object for an individual strategy.
 
 The Virility object has a __factory__ method that will return the strategy object:
 
-    tweets = Virility.factory(:reddit, "http://rubygems.org") # => returns a Virility::Reddit object with the rubygems url
+    reddit = Virility.factory(:reddit, "http://rubygems.org") # => returns a Virility::Reddit object with the rubygems url
 
 You can also instate the Virility::Reddit object directly:
 
-    tweets = Virility::Reddit.new("http://rubygems.org")
+    reddit = Virility::Reddit.new("http://rubygems.org")
 
 #### Ignoring Strategies
 
 Thanks to (Storyful)[https://github.com/storyful/virility], it is now possible to specify which strategies you want to use when initializing the Excitation object. Simply pass in an array of identifiers when creating the object and only those strategies will be implemented. The default is to use all available strategies.
 
-    Virility.poll("http://rubygems.org",[:facebook,:linkedin,:pinterest])
+    Virility.poll("http://rubygems.org",strategies: [:facebook,:linkedin,:pinterest])
+
+#### Using Proxy Server
+
+It is now possible to specify the ip address of a proxy server to utilise whilst performing the call
+
+    Virility.poll("http://rubygems.org", proxy: {  http_proxyaddr: '192.168.0.23', http_proxyport: 8888 } )
 
 #### Individual Usage Example
 
@@ -79,15 +85,15 @@ Let's say you only need to get the number of tweets for a URL, you could use the
 
     fb = Virility::Facebook.new("http://rubygems.org")
     fb.poll  # returns a hash with the collected output from Facebook
-    fb.count # returns the total_count for that URL
+    fb.count # returns the engagement_count for that URL
 
-The Facebook strategy leverages the FQL query against the link_stat table. Because of this, the following data fields are available:
-* like_count
-* click_count
-* share_count
+The Facebook strategy leverages the 2.1 api call. Because of this, the following data fields are available:
 * comment_count
-* commentsbox_count
-* total_count (used as the default count for all Facebook activity)
+* share_count
+* engagement_count
+* social_sentence
+
+However, the share_count and engagement_count return the same value for un-authenticated api calls.
 
 #### Virility::Excitation
 
@@ -106,16 +112,16 @@ If you have a Virility::Excitation object, there are dynamic finders that will r
 If you have a Strategy object, any of the attributes that are commonly returned through the API call will be available as a dynamic finder.  This is particularly useful with the Facebook strategy:
 
     fb = Virility::Facebook.new("http://rubygems.org/")
-    fb.like_count    # => 12
-    fb.share_count   # => 40
-    fb.comment_count # => 20
-    fb.total_count   # => 72
+    fb.comment_count     # => 0
+    fb.share_count       # => 673
+    fb.engagement_count  # => 673
+    fb.social_sentence   # => "673 people like this."
 
 #### Combined Finders
 
 Leveraging both sets of dynamic finders allows you to build an Excitation object and get all the way through to an attribute for a specific strategy:
 
-    Virility.url("http://google.com/").facebook.like_count # => 979662
+    Virility.url("http://google.com/").facebook.share_count # => 39790003
     Virility.url("http://google.com/").stumble_upon.info_link # => "http://www.stumbleupon.com/url/www.google.com/"
 
 ## Important Notes

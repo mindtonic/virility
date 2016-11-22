@@ -1,6 +1,5 @@
 module Virility
   class Facebook < Strategy
-    # BASE_URL = "https://api.facebook.com/method/links.getStats?urls="
     BASE_URL = 'https://graph.facebook.com/?fields=share,og_object{engagement,title}&id='.freeze
 
     def census

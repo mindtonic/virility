@@ -24,7 +24,7 @@ module Virility
     Virility::Excitation.new(url, strategies, proxy: proxy).total
   end
 
-  def self.poll(url, strategies = [], proxy: {})
+  def self.poll(url, strategies: [], proxy: {})
     Virility::Excitation.new(url, strategies, proxy: proxy).poll
   end
 
