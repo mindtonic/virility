@@ -3,12 +3,14 @@ module Virility
     include HTTParty
     include Virility::Supporter
 
-    attr_accessor :url, :response, :results, :original_url
+    attr_accessor :url, :response, :results, :original_url, :http_proxyaddr, :http_proxyport
 
-    def initialize url
+    def initialize(url, proxy: {})
       @original_url = url
       @url = encode(url)
       @results = {}
+      @http_proxyaddr = proxy.dig(:http_proxyaddr)
+      @http_proxyport = proxy.dig(:http_proxyport)
     end
 
     #

@@ -2,17 +2,18 @@ module Virility
   class Excitation
     include Virility::Supporter
 
-    attr_accessor :url, :results, :strategies, :counts
+    attr_accessor :url, :results, :strategies, :counts, :proxy
 
     #
     # Initialization
     #
-    def initialize(url, strategies = [])
+    def initialize(url, strategies = [], proxy: {})
       @url = url
       @strategies = {}
       @results = {}
       @counts = {}
       @filter_strategies = strategies || []
+      @proxy = proxy
       collect_strategies
       filter_strategies
     end
@@ -66,7 +67,12 @@ module Virility
     #
 
     def collect_strategies
-      Dir["#{File.dirname(__FILE__)}/strategies/**/*.rb"].each { |klass| @strategies[get_class_string(klass).to_sym] = Virility.const_get(camelize(get_class_string(klass))).new(@url) }
+      Dir["#{File.dirname(__FILE__)}/strategies/**/*.rb"].each { |klass| @strategies[get_class_string(klass).to_sym] = Virility.const_get(camelize(get_class_string(klass))).new(@url, proxy: @proxy) }
+    end
+
+    def filter_strategies
+      return if @filter_strategies.empty?
+      @strategies.select! { |k, _v| @filter_strategies.include?(k) }
     end
 
     def filter_strategies
